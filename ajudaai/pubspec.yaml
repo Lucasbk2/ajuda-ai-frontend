@@ -29,8 +29,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_bloc: ^7.0.1
-  graphql: ^4.0.1
-  json_annotation: ^4.0.1
+  raphql_flutter: ^4.0.0-beta
 
 dev_dependencies:
   flutter_test:
