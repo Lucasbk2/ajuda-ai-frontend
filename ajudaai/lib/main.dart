@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+//import 'package:graphql_flutter/graphql_flutter.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
 
-final HttpLink httpLink = new HttpLink(url: "https://graphqlzero.almansi.me/api")
+//final HttpLink httpLink = new HttpLink(url: "https://graphqlzero.almansi.me/api");
 
   @override
   Widget build(BuildContext context) {
