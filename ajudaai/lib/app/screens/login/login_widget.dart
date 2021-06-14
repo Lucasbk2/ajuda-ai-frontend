@@ -15,19 +15,20 @@ class LoginWidget extends StatefulWidget{
   @override
   Widget build(BuildContext context) {
     // Instanciando o controller
-    final LoginBlock block = BlocProvider.getBloc()<LoginBlock>(context);
+    final LoginBlock block = BlocProvider.getBloc<LoginBlock>();
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.purple[700],
-          // title: Text('Welcome to Flutter'),
-        ),
+        backgroundColor: Colors.purple[700],
         body: Center(child: 
           Column(children: [
             Padding(padding: const EdgeInsets.all(32.0),
-            child: Text("Login"),
+            child: Text("Login", style: TextStyle(fontSize: 20, color: Colors.white),),
             ),
-        ],),)
+        ]
+        ,)
+          
+        ,)
+        
      
     );
   }
