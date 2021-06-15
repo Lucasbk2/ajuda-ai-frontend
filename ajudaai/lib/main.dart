@@ -1,9 +1,29 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
-import 'app/screens/login/login_page.dart';
+import 'app/screens/login/login_bloc.dart';
+import 'app/screens/login/login_widget.dart';
 
 
 void main() {
-  runApp(LoginPageView());
+  runApp(StartApp());
+  
+}
+
+class StartApp extends StatelessWidget {
+
+//final HttpLink httpLink = new HttpLink(url: "https://graphqlzero.almansi.me/api");
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(
+      home: BlocProvider(
+        blocs:[
+          Bloc((i) => LoginBlock()),
+        ],
+        child: LoginWidget()
+    ),
+    );
+  }
+  
 }
 /*
   runApp(
