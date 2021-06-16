@@ -4,7 +4,14 @@ import 'app/screens/login/Login.dart';
 
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    home: MyApp(), // becomes the route named '/'
+    routes: <String, WidgetBuilder> {
+      '/a': (BuildContext context) => MyPage(title: 'page A'),
+      '/b': (BuildContext context) => MyPage(title: 'page B'),
+      '/c': (BuildContext context) => MyPage(title: 'page C'),
+    },
+  );
   
 }
 
