@@ -31,7 +31,7 @@ class _LoginPage extends State<LoginPage> {
               child: Text('Cadastro')
             ),
             OutlinedButton(
-              onPressed: () => { Navigator.pop(context) },
+              onPressed: () => { Navigator.pop(context, true) },
               child: Text('Voltar')
             )
           ]

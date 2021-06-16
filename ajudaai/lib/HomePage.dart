@@ -1,5 +1,5 @@
 
-import 'package:ajudaai/app/screens/login/Login.dart';
+import 'package:ajudaai/app/screens/login/LoginPage.dart';
 
 import './counter.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     TextButton(
                       child: Text('Ir para o login'),
-                      onPressed: () { Navigator.push( context, MaterialPageRoute(builder: (context) => LoginPage() ), ); },
+                      onPressed: () => Navigator.pushNamed(context, '/login'),
                     )
                 ],
                 ),
