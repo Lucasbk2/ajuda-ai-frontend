@@ -1,14 +1,14 @@
 
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-    LoginPage({Key key}) : super(key: key);
+class LoginView extends StatefulWidget {
+    LoginView({Key key}) : super(key: key);
 
     @override
-    _LoginPage createState() => _LoginPage();
+    _LoginView createState() => _LoginView();
 }
 
-class _LoginPage extends State<LoginPage> {
+class _LoginView extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +28,13 @@ class _LoginPage extends State<LoginPage> {
             ),
             OutlinedButton(
               onPressed: () => { Navigator.pushNamed(context, "/user")},
-              child: Text('Cadastro')
+              child: Text('User')
             ),
-            ElevatedButton(
+            OutlinedButton(
+              onPressed: () => {Navigator.pushNamed(context, "/map")},
+              child: Text('Mapa')
+            ),
+            OutlinedButton(
               onPressed: () => { Navigator.pop(context, true) },
               child: Text('Voltar')
             )
