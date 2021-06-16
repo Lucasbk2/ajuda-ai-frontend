@@ -22,15 +22,15 @@ class _LoginPage extends State<LoginPage> {
             Text(
                 'O Login',
             ),
-            TextButton(
+            OutlinedButton(
               child: Text('Login'),
               onPressed: () => { print("Fez o login") },
             ),
             OutlinedButton(
-              onPressed: () => { print("vai para o cadastro") },
+              onPressed: () => { Navigator.pushNamed(context, "/user")},
               child: Text('Cadastro')
             ),
-            OutlinedButton(
+            ElevatedButton(
               onPressed: () => { Navigator.pop(context, true) },
               child: Text('Voltar')
             )

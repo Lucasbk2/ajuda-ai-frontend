@@ -1,6 +1,6 @@
 class User {
   String name;
-  String password;
+  String email;
 
-  User({this.name, this.password});
+  User({this.name, this.email});
 }

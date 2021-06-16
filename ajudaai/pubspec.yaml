@@ -29,6 +29,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   mobx: ^2.0.1
   flutter_mobx: ^2.0.0
+  graphql_flutter: ^5.0.0
 
 dev_dependencies:
   build_runner: ^2.0.4
