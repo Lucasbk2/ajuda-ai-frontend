@@ -1,5 +1,8 @@
 
+import 'package:ajudaai/app/screens/user/UserController.dart';
 import 'package:flutter/material.dart';
+
+final _userController = UserController();
 
 class UserView extends StatefulWidget {
     UserView({Key key}) : super(key: key);
@@ -20,6 +23,7 @@ class _UserView extends State<UserView> {
             Text(
                 'O Usuário',
             ),
+            //OutlinedButton(child: Text("Opa"), onPressed: _userController.LoadAllUsers )
           ]
       ),
     ),

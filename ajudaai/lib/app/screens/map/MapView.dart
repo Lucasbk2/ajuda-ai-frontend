@@ -13,20 +13,21 @@ class MapView extends StatefulWidget {
 }
 
 class _MapView extends State<MapView> {
-  LatLng _center = LatLng(10,10);
+  LatLng _center = LatLng(-20.188389,-40.192908);
 
   @override
   Widget build(BuildContext context) {
-    return FlutterMap(options: MapOptions(
-      center: _center,
-      zoom: 1),
+    return FlutterMap(
+      options: MapOptions(
+          center: _center,
+          zoom: 13),
       layers: [
         TileLayerOptions(
-          urlTemplate: "https://a.tile.openstreetmap.org/12/2177/1259.png",
+          urlTemplate: "https://api.mapbox.com/styles/v1/lucasll/ckq01l0re8qij17lmgb5uqb36/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibHVjYXNsbCIsImEiOiJja3B6eDNvaHUwaG14Mm5yMDZzejFtMXE3In0.2f-bxWD7CQs5KTv0FHvQGw",
           additionalOptions: {
-            'accessToken' : "pk.eyJ1IjoibHVjYXNsbCIsImEiOiJja3B6eDNvaHUwaG14Mm5yMDZzejFtMXE3In0.2f-bxWD7CQs5KTv0FHvQGw"
+            'accessToken' : "pk.eyJ1IjoibHVjYXNsbCIsImEiOiJja3B6eDNvaHUwaG14Mm5yMDZzejFtMXE3In0.2f-bxWD7CQs5KTv0FHvQGw",
+            'id': 'mapbox.mapbox-streets-v8',
           },
-          subdomains: ['a','b','c']
         )
       ],
       );
