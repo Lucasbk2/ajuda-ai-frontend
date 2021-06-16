@@ -1,22 +1,22 @@
 
-import 'package:ajudaai/app/screens/login/LoginPage.dart';
+import 'package:ajudaai/app/screens/login/LoginView.dart';
 
-import './counter.dart';
+import 'counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 final counter = Counter();
 
-class HomePage extends StatefulWidget {
-    HomePage({Key key, this.title}) : super(key: key);
+class HomeView extends StatefulWidget {
+    HomeView({Key key, this.title}) : super(key: key);
 
     final String title;
 
     @override
-    _HomePageState createState() => _HomePageState();
+    _HomeViewState createState() => _HomeViewState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeViewState extends State<HomeView> {
     @override
     Widget build(BuildContext context) {
         return Scaffold(
