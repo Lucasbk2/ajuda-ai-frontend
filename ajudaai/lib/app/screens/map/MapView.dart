@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
+final _mapController = MyMapController();
+
 class MapView extends StatefulWidget {
   MapView({Key key}) : super(key: key);
 
@@ -18,7 +20,7 @@ class _MapView extends State<MapView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Mapa"),),
+      appBar: AppBar(title: Text(_mapController.getCurrentLtg()),),
       body: FlutterMap(
         options: MapOptions(center: _center, zoom: 2),
         layers: [
