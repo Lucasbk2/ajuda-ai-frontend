@@ -2,6 +2,7 @@ import 'package:ajudaai/app/screens/map/MapController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:latlong2/latlong.dart';
 
 final _mapController = MyMapController();
@@ -14,14 +15,28 @@ class MapView extends StatefulWidget {
 }
 
 class _MapView extends State<MapView> {
-  LatLng _center = LatLng(-20.188389, -40.192908);
+  @override
+  void initState() {
+    super.initState();
+    /*final Map<String, double> arguments = ModalRoute.of(context).settings.arguments;
+    print("argumento: $arguments['latitude']");
+    _mapController.latitude = arguments['latitude'];
+    _mapController.longitude = arguments['longitude'];*/
+  }
 
+  
+  
   @override
   Widget build(BuildContext context) {
+    final Map<String, double> arguments = ModalRoute.of(context).settings.arguments;
+    print("argumento: $arguments['latitude']");
+    _mapController.latitude = arguments['latitude'];
+    _mapController.longitude = arguments['longitude'];
+    LatLng _center = LatLng(_mapController.latitude, _mapController.longitude);
     return Scaffold(
-      appBar: AppBar(title: Text(_mapController.getCurrentLtg()),),
+      appBar: AppBar(title: Observer(builder: (_) => Text('${_mapController.latitude}'),),),
       body: FlutterMap(
-        options: MapOptions(center: _center, zoom: 2),
+        options: MapOptions(center: _center, zoom: 13),
         layers: [
           TileLayerOptions(
             urlTemplate:

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'MapController.dart';
+part of 'SplashController.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'MapController.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$MyMapController on _MapController, Store {
-  final _$latitudeAtom = Atom(name: '_MapController.latitude');
+mixin _$SplashController on _SplashController, Store {
+  final _$latitudeAtom = Atom(name: '_SplashController.latitude');
 
   @override
   double get latitude {
@@ -24,7 +24,7 @@ mixin _$MyMapController on _MapController, Store {
     });
   }
 
-  final _$longitudeAtom = Atom(name: '_MapController.longitude');
+  final _$longitudeAtom = Atom(name: '_SplashController.longitude');
 
   @override
   double get longitude {
@@ -40,7 +40,7 @@ mixin _$MyMapController on _MapController, Store {
   }
 
   final _$getCurrentLtgAsyncAction =
-      AsyncAction('_MapController.getCurrentLtg');
+      AsyncAction('_SplashController.getCurrentLtg');
 
   @override
   Future<void> getCurrentLtg() {
@@ -48,32 +48,24 @@ mixin _$MyMapController on _MapController, Store {
   }
 
   final _$getCurrentLongAsyncAction =
-      AsyncAction('_MapController.getCurrentLong');
+      AsyncAction('_SplashController.getCurrentLong');
 
   @override
   Future<void> getCurrentLong() {
     return _$getCurrentLongAsyncAction.run(() => super.getCurrentLong());
   }
 
-  final _$waitLocationLoadAsyncAction =
-      AsyncAction('_MapController.waitLocationLoad');
-
-  @override
-  Future<void> waitLocationLoad() {
-    return _$waitLocationLoadAsyncAction.run(() => super.waitLocationLoad());
-  }
-
-  final _$_MapControllerActionController =
-      ActionController(name: '_MapController');
+  final _$_SplashControllerActionController =
+      ActionController(name: '_SplashController');
 
   @override
   dynamic goBackHome(dynamic context) {
-    final _$actionInfo = _$_MapControllerActionController.startAction(
-        name: '_MapController.goBackHome');
+    final _$actionInfo = _$_SplashControllerActionController.startAction(
+        name: '_SplashController.goBackHome');
     try {
       return super.goBackHome(context);
     } finally {
-      _$_MapControllerActionController.endAction(_$actionInfo);
+      _$_SplashControllerActionController.endAction(_$actionInfo);
     }
   }
 
