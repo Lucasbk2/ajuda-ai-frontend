@@ -25,6 +25,7 @@ abstract class _MapController with Store {
         desiredAccuracy: LocationAccuracy.high);
     this.longitude = position.longitude;
   }
+  
   @action
   Future<void> waitLocationLoad() async{
     if(latitude == null || longitude == null){
@@ -37,6 +38,7 @@ abstract class _MapController with Store {
 
   @action
   goBackHome(context) {
-    Navigator.pop(context, true);
+    //Navigator.pop(context, true,);
+    Navigator.pushNamed(context, "/login");
   }
 }
