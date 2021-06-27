@@ -1,3 +1,4 @@
+import 'package:ajudaai/app/screens/chat/ChatView.dart';
 import 'package:ajudaai/app/screens/user/userView.dart';
 import 'dart:collection';
 import 'package:ajudaai/app/screens/splash/SplashView.dart';
@@ -17,6 +18,7 @@ void main() {
       '/map': (BuildContext context) => MapView(),
       '/user': (BuildContext context) => UserView(),
       '/splash': (BuildContext context) => SplashView(),
+      '/chat': (BuildContext context) => ChatView(),
     },
   ));
   

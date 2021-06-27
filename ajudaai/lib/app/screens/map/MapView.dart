@@ -55,7 +55,7 @@ class _MapView extends State<MapView> {
             point: LatLng(_mapController.latitude, _mapController.longitude),
             builder: (ctx) =>
             Container(
-              child: FlutterLogo(),
+              child: Image.asset('images/markers/PurpleMarker'),
             ),
           ),
         ],

@@ -2,7 +2,7 @@
 
 
 
-Para executar o projeto use : flutter run"
+Para executar o projeto use : flutter run
 
 O hot reload não atualizará automaticamente enquanto você modificar algum controller.
 Se quiser atualizar algum controller utilize o comando abaixo:
