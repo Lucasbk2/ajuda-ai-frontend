@@ -44,7 +44,7 @@ class _HomeViewState extends State<HomeView> {
                 onPressed: () => {Navigator.pushNamed(context, "/user")},
                 child: Text('User')),
             OutlinedButton(
-                onPressed: () => {Navigator.pushNamed(context, "/map")},
+                onPressed: () => {Navigator.pushNamed(context, "/splash")},
                 child: Text('Mapa')),
             OutlinedButton(
                 onPressed: () => {Navigator.pop(context, true)},

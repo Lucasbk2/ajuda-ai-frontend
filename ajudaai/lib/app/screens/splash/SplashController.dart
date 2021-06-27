@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:geolocator/geolocator.dart';
 import 'dart:async';
-part 'MapController.g.dart';
+import 'package:geolocator/geolocator.dart';
+part 'SplashController.g.dart';
 
-class MyMapController = _MapController with _$MyMapController;
+class SplashController = _SplashController with _$SplashController;
 
-abstract class _MapController with Store {
-  @observable
+abstract class _SplashController with Store {
+    @observable
   double latitude;
   @observable
   double longitude;
-
+  
   @action
   Future<void> getCurrentLtg() async {
     var position = await Geolocator.getCurrentPosition(
@@ -25,17 +25,8 @@ abstract class _MapController with Store {
         desiredAccuracy: LocationAccuracy.high);
     this.longitude = position.longitude;
   }
-  @action
-  Future<void> waitLocationLoad() async{
-    if(latitude == null || longitude == null){
-      Timer(Duration(seconds: 1),() => null);
-      waitLocationLoad();
-    }
-  }
 
-  
-
-  @action
+@action
   goBackHome(context) {
     Navigator.pop(context, true);
   }
