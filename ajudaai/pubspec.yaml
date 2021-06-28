@@ -33,7 +33,6 @@ dependencies:
   flutter_mobx: ^2.0.0
   graphql_flutter: ^5.0.0
   geolocator: ^7.0.0
-  location: ^4.3.0
 
 dev_dependencies:
   build_runner: ^2.0.4
@@ -46,8 +45,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-  assets:
-        - lib/shared/images/
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

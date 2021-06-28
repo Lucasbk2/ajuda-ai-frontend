@@ -18,6 +18,8 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
+    AssetImage PurpleMarker = AssetImage('markers/PurpleMarker.png');
+    Image imagem = Image(image: PurpleMarker,width:300,height:100,fit: BoxFit.cover,);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -48,7 +50,8 @@ class _HomeViewState extends State<HomeView> {
                 child: Text('Mapa')),
             OutlinedButton(
                 onPressed: () => {Navigator.pop(context, true)},
-                child: Text('Voltar'))
+                child: Text('Voltar')),
+                Container(child: imagem,)
           ],
         ),
       ),

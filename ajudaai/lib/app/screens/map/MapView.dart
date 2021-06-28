@@ -28,10 +28,15 @@ class _MapView extends State<MapView> {
   
   @override
   Widget build(BuildContext context) {
-    final Map<String, double> arguments = ModalRoute.of(context).settings.arguments;
-    _mapController.latitude = arguments['latitude'];
-    _mapController.longitude = arguments['longitude'];
-    LatLng _center = LatLng(_mapController.latitude, _mapController.longitude);
+
+    LatLng _center = _mapController.getLtgLng(context);
+
+    AssetImage PurpleMarkerAsset = AssetImage('markers/PurpleMarker.png');
+    Image PurpleMarker = Image(image: PurpleMarkerAsset,fit: BoxFit.cover,);
+    AssetImage RedMarkerAsset = AssetImage('markers/RedMarker.png');
+    Image RedMarker = Image(image: RedMarkerAsset,fit: BoxFit.cover,);
+    AssetImage BlueMarkerAsset = AssetImage('markers/BlueMarker.png');
+    Image BlueMarker = Image(image: BlueMarkerAsset,fit: BoxFit.cover,);
 
     return Scaffold(
       appBar: AppBar(title: Observer(builder: (_) => Text('${_mapController.latitude}'),),),
@@ -53,10 +58,7 @@ class _MapView extends State<MapView> {
             width: 80.0,
             height: 80.0,
             point: LatLng(_mapController.latitude, _mapController.longitude),
-            builder: (ctx) =>
-            Container(
-              child: Image.asset('images/markers/PurpleMarker'),
-            ),
+            builder: (context) => Container(child: PurpleMarker,)
           ),
         ],
       ),
