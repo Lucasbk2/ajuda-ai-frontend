@@ -1,23 +1,36 @@
+const String testeReadAllUSers = r'''
+      query readUsers() {
+        viewer {
+
+          users() {
+            users() {
+              name
+              email
+            }
+          }
+
+        }
+      }
+    ''';
+
 const String readAllUsers = r'''
-  query readAllUsers() {
-    users {
-      id
+query readUsers(){
+   viewer {
+      users() {
+        name
+        email
+      }
+  }
+}
+''';
+
+const String readUserbyId = r'''
+query readUserByID($id: Int!) {
+  viewer {
+    user(id: $id){
       name
       email
     }
   }
-''';
-
-const String readUserbyId = r'''
-  query readUserbyId($id: Int!) {
-    viewer {
-      repositories(last: $id) {
-        user {
-          id
-          name
-          email
-        }
-      }
-    }
-  }
+}
 ''';

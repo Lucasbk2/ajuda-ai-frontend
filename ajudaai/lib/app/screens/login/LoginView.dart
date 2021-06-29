@@ -31,12 +31,16 @@ class _LoginView extends State<LoginView> {
               child: Text('User')
             ),
             OutlinedButton(
-              onPressed: () => {Navigator.pushNamed(context, "/map")},
+              onPressed: () => { Navigator.pushNamed(context, "/map") },
               child: Text('Mapa')
             ),
             OutlinedButton(
               onPressed: () => { Navigator.pop(context, true) },
               child: Text('Voltar')
+            ),
+            MaterialButton(
+              onPressed: () => { Navigator.pushNamed(context, "/feed") },
+              child: Text('Feed')
             )
           ]
         )

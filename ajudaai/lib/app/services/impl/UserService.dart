@@ -1,17 +1,19 @@
 import 'package:ajudaai/app/services/IUserService.dart';
 import 'package:ajudaai/app/services/graphql_operation/queries/ReadUsers.dart';
 import 'package:ajudaai/app/shared/models/User.dart';
-import 'package:ajudaai/app/utils/GraphqlClient.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:ajudaai/app/services/graphql_operation/CustomGraphqlClient.dart';
 
 
 class UserService implements IuserService {
   
+  CustomGraphqlClient _customGraphqlClient = CustomGraphqlClient();
+
   Future< List<User> > getAllUsers() async {
-    final _options = QueryOptions( document: gql( readAllUsers ) );
-    final result = await graphQLClient.query(_options);
+
+    final result = await _customGraphqlClient.searchQuery(testeReadAllUSers);
     print(result);
     return List.empty();
+
   }
 
 }

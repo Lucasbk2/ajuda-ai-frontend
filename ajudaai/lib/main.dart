@@ -1,3 +1,4 @@
+import 'package:ajudaai/app/screens/feed/FeedView.dart';
 import 'package:ajudaai/app/screens/user/userView.dart';
 import 'dart:collection';
 
@@ -15,6 +16,7 @@ void main() {
       '/initial': (BuildContext context) => HomeView(title: 'Aquele teste'),
       '/login': (BuildContext context) => LoginView(),
       '/map': (BuildContext context) => MapView(),
+      '/feed': (BuildContext context) => FeedView(),
       '/user': (BuildContext context) => UserView()
     },
   ));

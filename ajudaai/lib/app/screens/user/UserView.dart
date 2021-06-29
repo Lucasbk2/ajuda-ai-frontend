@@ -23,7 +23,7 @@ class _UserView extends State<UserView> {
             Text(
                 'O Usuário',
             ),
-            //OutlinedButton(child: Text("Opa"), onPressed: _userController.LoadAllUsers )
+            OutlinedButton(child: Text("Opa"), onPressed: _userController.LoadAllUsers )
           ]
       ),
     ),
