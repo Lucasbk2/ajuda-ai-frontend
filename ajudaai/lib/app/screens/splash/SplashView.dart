@@ -1,3 +1,4 @@
+import 'package:ajudaai/app/shared/core/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -26,7 +27,6 @@ class _SplashViewState extends State<SplashView> {
     _splashController.getCurrentLong();
     _splashController.getCurrentLtg();
     Future.delayed(Duration(seconds: 4), () {
-      
       final args = ModalRoute.of(context).settings.arguments as ScreenArguments;
 
       Navigator.of(context).pushNamed("/map", arguments: {
@@ -35,6 +35,7 @@ class _SplashViewState extends State<SplashView> {
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
