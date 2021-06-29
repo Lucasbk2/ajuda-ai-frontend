@@ -1,19 +1,13 @@
 # ajudaai
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+Para executar o projeto use : flutter run
 
-A few resources to get you started if this is your first Flutter project:
+O hot reload não atualizará automaticamente enquanto você modificar algum controller.
+Se quiser atualizar algum controller utilize o comando abaixo:
+flutter pub run build_runner build --delete-conflicting-outputs
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-run `flutter pub run build_runner build --delete-conflicting-outputs` to generate code in mobx
-run `flutter run` to execute project
+Caso queira que os controllers se atualizem automaticamente a cada atualização que você realizar, você deverá
+Abrir dois terminais, um deles irá executar o código(flutter run) e deverá ser utilizado o comando abaixo.
+flutter pub run build_runner watch --delete-conflicting-outputs
