@@ -55,16 +55,19 @@ mixin _$MyMapController on _MapController, Store {
     return _$getCurrentLongAsyncAction.run(() => super.getCurrentLong());
   }
 
-  final _$waitLocationLoadAsyncAction =
-      AsyncAction('_MapController.waitLocationLoad');
-
-  @override
-  Future<void> waitLocationLoad() {
-    return _$waitLocationLoadAsyncAction.run(() => super.waitLocationLoad());
-  }
-
   final _$_MapControllerActionController =
       ActionController(name: '_MapController');
+
+  @override
+  LatLng getLtgLng(dynamic context) {
+    final _$actionInfo = _$_MapControllerActionController.startAction(
+        name: '_MapController.getLtgLng');
+    try {
+      return super.getLtgLng(context);
+    } finally {
+      _$_MapControllerActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic goBackHome(dynamic context) {

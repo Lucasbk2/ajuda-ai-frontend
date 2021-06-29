@@ -1,5 +1,4 @@
 import 'package:ajudaai/app/screens/feed/FeedView.dart';
-import 'package:ajudaai/app/screens/user/userView.dart';
 import 'package:ajudaai/app/screens/chat/ChatView.dart';
 import 'package:ajudaai/app/screens/user/UserView.dart';
 import 'dart:collection';

@@ -27,6 +27,7 @@ abstract class _MapController with Store {
     this.longitude = position.longitude;
   }
   
+  @action
   LatLng getLtgLng(context){
     final Map<String, double> arguments = ModalRoute.of(context).settings.arguments;
     if(longitude==null || latitude== null){
@@ -39,19 +40,7 @@ abstract class _MapController with Store {
     }
     return LatLng(latitude, longitude);
   }
-
-  @action
-  Future<void> waitLocationLoad() async{
-    if(latitude == null || longitude == null){
-      Timer(Duration(seconds: 1),() => null);
-      waitLocationLoad();
-    }
-  }
-
-
-
-  
-
+    
   @action
   goBackHome(context) {
     int count = 0;

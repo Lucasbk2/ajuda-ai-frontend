@@ -1,13 +1,16 @@
 import 'package:ajudaai/app/screens/map/MapController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:location/location.dart';
 
 final _mapController = MyMapController();
 
 class MapView extends StatefulWidget {
+
   MapView({Key key}) : super(key: key);
 
   @override
@@ -15,21 +18,83 @@ class MapView extends StatefulWidget {
 }
 
 class _MapView extends State<MapView> {
+
+  MapController _originalMapController;
+  String _serviceError = '';
+  LocationData _currentLocation;
+  final Location _locationService = Location();
+  bool isLoading = true;
+
   @override
   void initState() {
     super.initState();
-    /*final Map<String, double> arguments = ModalRoute.of(context).settings.arguments;
-    print("argumento: $arguments['latitude']");
-    _mapController.latitude = arguments['latitude'];
-    _mapController.longitude = arguments['longitude'];*/
+    _originalMapController = MapController();
+    initLocationService();
   }
 
-  
+  void initLocationService() async {
+    await _locationService.changeSettings(
+      accuracy: LocationAccuracy.high,
+      interval: 1000,
+    );
+
+    LocationData location;
+    bool serviceEnabled;
+    bool serviceRequestResult;
+
+    try {
+      serviceEnabled = await _locationService.serviceEnabled();
+
+      if (serviceEnabled) {
+        var permission = await _locationService.requestPermission();
+
+        if (permission == PermissionStatus.granted) {
+          location = await _locationService.getLocation();
+          _currentLocation = location;
+          _locationService.onLocationChanged
+              .listen((LocationData result) async {
+            if (mounted) {
+              setState(() {
+                _currentLocation = result;
+                isLoading = false;
+                _originalMapController.move(
+                    LatLng(_currentLocation.latitude,
+                        _currentLocation.longitude),
+                    _originalMapController.zoom);
+              });
+            }
+          });
+        }
+      } else {
+        serviceRequestResult = await _locationService.requestService();
+        if (serviceRequestResult) {
+          initLocationService();
+          return;
+        }
+      }
+    } on PlatformException catch (e) {
+      print(e);
+      if (e.code == 'PERMISSION_DENIED') {
+        _serviceError = e.message;
+      } else if (e.code == 'SERVICE_STATUS_ERROR') {
+        _serviceError = e.message;
+      }
+      location = null;
+    }
+  }
   
   @override
   Widget build(BuildContext context) {
+    
+    LatLng _center;
 
-    LatLng _center = _mapController.getLtgLng(context);
+    // Until currentLocation is initially updated, Widget can locate to 0, 0
+    // by default or store previous location value to show.
+    if (_currentLocation != null) {
+      _center = LatLng(_currentLocation.latitude, _currentLocation.longitude);
+    } else {
+      _center = LatLng(0, 0);
+    }
 
     AssetImage PurpleMarkerAsset = AssetImage('markers/PurpleMarker.png');
     Image PurpleMarker = Image(image: PurpleMarkerAsset,fit: BoxFit.cover,);
@@ -38,9 +103,19 @@ class _MapView extends State<MapView> {
     AssetImage BlueMarkerAsset = AssetImage('markers/BlueMarker.png');
     Image BlueMarker = Image(image: BlueMarkerAsset,fit: BoxFit.cover,);
 
-    return Scaffold(
+    if(isLoading){
+      return Scaffold(
+        appBar: AppBar(title: Text('Aquele mapa') ),
+        body: Center(
+          child: CircularProgressIndicator(),
+        )
+      );
+    }else{
+      return Scaffold(
       appBar: AppBar(title: Observer(builder: (_) => Text('${_mapController.latitude}'),),),
-      body: FlutterMap(
+      body: Observer(builder: (_ ) => 
+        FlutterMap(
+        mapController: _originalMapController,
         options: MapOptions(center: _center, zoom: 15),
         layers: [
           TileLayerOptions(
@@ -53,17 +128,19 @@ class _MapView extends State<MapView> {
             },
           ),
           MarkerLayerOptions(
-        markers: [
-          Marker(
-            width: 80.0,
-            height: 80.0,
-            point: LatLng(_mapController.latitude, _mapController.longitude),
-            builder: (context) => Container(child: PurpleMarker,)
+            markers: [
+              Marker(
+                width: 80.0,
+                height: 80.0,
+                point: LatLng(_mapController.latitude, _mapController.longitude),
+                builder: (context) => Container(child: PurpleMarker,)
+              ),
+            ],
           ),
         ],
       ),
-        ],
-      ),
+      )
     );
+    }
   }
 }
