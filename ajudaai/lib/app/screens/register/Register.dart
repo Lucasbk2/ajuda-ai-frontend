@@ -140,7 +140,7 @@ class _Register extends State<Register> {
                     ),
                     child: Center(
                       child: Text(
-                        'Login',
+                        'Cadastrar',
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,

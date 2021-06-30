@@ -1,3 +1,4 @@
+import 'package:ajudaai/app/shared/core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -57,16 +58,28 @@ class _MapaComponent extends State<MapaComponent> {
     setState(() {
       _currentLocation = result;
       AssetImage PurpleMarker = AssetImage('markers/PurpleMarker.png');
-      Image imagem = Image(image: PurpleMarker,width:300,height:100,fit: BoxFit.cover,);
+      Image imagem = Image(
+        image: PurpleMarker,
+        width: 300,
+        height: 100,
+        fit: BoxFit.cover,
+      );
 
       final createMarker = (latLng) => Marker(
-            width: 60.0,
-            height: 60.0,
-            point: latLng,
-            builder: (ctx) => Container(
-              child: imagem,
-            ),
-          );
+          width: 60.0,
+          height: 60.0,
+          point: latLng,
+          builder: (ctx) => Container(
+                  child: new Container(
+                child: IconButton(
+                  icon: Icon(Icons.location_on),
+                  color: AppColors.purpleButton,
+                  iconSize: 45.0,
+                  onPressed: () {
+                    print('Marker tapped');
+                  },
+                ),
+              )));
 
       _markers[0] = createMarker(
           LatLng(_currentLocation.latitude, _currentLocation.longitude));

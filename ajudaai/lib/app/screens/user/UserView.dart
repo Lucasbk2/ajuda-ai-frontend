@@ -87,6 +87,7 @@ class _UserView extends State<UserView> {
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     labelText: 'Email',
+                    hintText: 'Insira o email',
                   ),
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
@@ -98,7 +99,8 @@ class _UserView extends State<UserView> {
                   autocorrect: false,
                   inputFormatters: [MaskedInputFormatter('(##) #####-####')],
                   decoration: const InputDecoration(
-                    labelText: 'número',
+                    labelText: 'Telefone',
+                    hintText: 'Insira o Telefone',
                   ),
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
@@ -110,7 +112,7 @@ class _UserView extends State<UserView> {
                   height: 50,
                   // height: double.infinity,
                   child: ElevatedButton(
-                    child: Text("cadastrar Usuário", style: TextStyle(
+                    child: Text("Salvar Usuário", style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold
                     )),

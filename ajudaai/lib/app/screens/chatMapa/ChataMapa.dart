@@ -47,7 +47,7 @@ class _ChataMapa extends State<ChataMapa> with TickerProviderStateMixin {
         ),
         bottomNavigationBar: MotionTabBar(
           labels: [
-            "Mapa","Chat", "info"
+            "Mapa","Chat", "Sobre"
           ],
           initialSelectedTab: "Mapa",
           tabIconColor: Colors.green,
