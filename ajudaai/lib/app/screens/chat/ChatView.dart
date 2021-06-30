@@ -2,7 +2,6 @@ import 'package:ajudaai/app/screens/chat/ChatController.dart';
 import 'package:flutter/material.dart';
 import 'package:ajudaai/app/shared/core/core.dart';
 import 'package:ajudaai/app/shared/models/Message.dart';
-
 import 'package:flutter_socket_io/flutter_socket_io.dart';
 import 'package:flutter_socket_io/socket_io_manager.dart';
 
@@ -18,6 +17,9 @@ class ChatView extends StatefulWidget {
 }
 
 class _ChatViewState extends State<ChatView> {
+
+  getCurrentLtg()
+
   String userId = "1";
   SocketIO socketIO;
 
@@ -39,13 +41,7 @@ class _ChatViewState extends State<ChatView> {
   // String chat = "testead";
   // String avatar = "https://avatars.githubusercontent.com/u/74056749?v=4";
 
-  List<Message> messages = [
-    Message(message: "1", id: "1", chatKey: "olin"),
-    Message(message: "2", id: "2", chatKey: "polin"),
-    Message(message: "3", id: "1", chatKey: "polin"),
-    Message(message: "4", id: "2", chatKey: "polin"),
-    Message(message: "5", id: "2", chatKey: "polin"),
-  ];
+  List<Message> messages = 
 
   @override
   void initState() {
