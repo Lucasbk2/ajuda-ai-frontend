@@ -1,0 +1,175 @@
+import 'package:ajudaai/app/screens/chat/ChatController.dart';
+import 'package:flutter/material.dart';
+import 'package:ajudaai/app/shared/models/Message.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+final _chatController = ChatController();
+
+class ChatView extends StatefulWidget {
+  ChatView({Key key, this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  _ChatViewState createState() => _ChatViewState();
+}
+
+class _ChatViewState extends State<ChatView> {
+  String userId = "1";
+
+  List<Message> messages = [
+    Message(message: "1", id: "1", chatKey: "olin"),
+    Message(message: "2", id: "2", chatKey: "polin"),
+    Message(message: "3", id: "1", chatKey: "polin"),
+    Message(message: "4", id: "2", chatKey: "polin"),
+    Message(message: "5", id: "2", chatKey: "polin"),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.purple[950],
+        flexibleSpace: SafeArea(
+          child: Container(
+            padding: EdgeInsets.only(right: 20),
+            child: Row(
+              children: <Widget>[
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      "https://avatars.githubusercontent.com/u/74056749?s=400&u=c6208d9cc0c689966fc941b04ce65b67859ee1fe&v=4"),
+                  maxRadius: 20,
+                ),
+                SizedBox(
+                  width: 12,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "@Leo telles",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w600),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      body: Stack(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              Container(
+                child: SvgPicture.asset("assets/message_chat.svg",
+                    height: 500, width: 350),
+              ),
+              ListView.builder(
+                itemCount: messages.length,
+                shrinkWrap: true,
+                padding: EdgeInsets.only(top: 10, bottom: 10),
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return Container(
+                    padding: EdgeInsets.only(
+                        left: 14, right: 14, top: 10, bottom: 10),
+                    child: Align(
+                      alignment: (messages[index].id == userId
+                          ? Alignment.topLeft
+                          : Alignment.topRight),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: (messages[index].id != userId
+                              ? Colors.grey.shade200
+                              : Colors.blue[200]),
+                        ),
+                        padding: EdgeInsets.all(16),
+                        child: Text(
+                          messages[index].message,
+                          style: TextStyle(fontSize: 15),
+                          
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              Container(
+                padding:
+                    EdgeInsets.only(left: 10, bottom: 3, right: 10),
+                height: 80,
+                width: double.infinity,
+                color: Colors.white,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: const TextField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          borderRadius: BorderRadius.circular(20),
+                          labelText: 'Mensagem',
+                        ),
+                      ),
+                    ),
+                    FloatingActionButton(
+                      onPressed: () {},
+                      child: Icon(
+                        Icons.send,
+                        color: Colors.white,
+                        size: 15,
+                      ),
+                      backgroundColor: Colors.purple[700],
+                      elevation: 0,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          textStyle: const TextStyle(fontSize: 17)),
+                      onPressed: null,
+                      child: const Text('Finalizar'),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+          // Container(
+          //   child: Row(
+              // children: <Widget>[
+              //   ElevatedButton(
+              //     style: ElevatedButton.styleFrom(
+              //         textStyle: const TextStyle(fontSize: 17)),
+              //     onPressed: null,
+              //     child: const Text('Finalizar'),
+              //   ),
+          //     ],
+          //   ),
+          // ),
+        ],
+      ),
+    );
+  }
+}
