@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-class AppWidget extends StatelessWidget {
+class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "DevQuiz",
-    );
+    return Container();
   }
 }

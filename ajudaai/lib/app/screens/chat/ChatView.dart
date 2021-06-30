@@ -1,6 +1,10 @@
 import 'package:ajudaai/app/screens/chat/ChatController.dart';
 import 'package:flutter/material.dart';
+import 'package:ajudaai/app/shared/core/core.dart';
 import 'package:ajudaai/app/shared/models/Message.dart';
+
+import 'package:flutter_socket_io/flutter_socket_io.dart';
+import 'package:flutter_socket_io/socket_io_manager.dart';
 
 final _chatController = ChatController();
 
@@ -15,6 +19,7 @@ class ChatView extends StatefulWidget {
 
 class _ChatViewState extends State<ChatView> {
   String userId = "1";
+  SocketIO socketIO;
 
   final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
     onPrimary: Colors.black,
@@ -27,10 +32,12 @@ class _ChatViewState extends State<ChatView> {
         side: BorderSide(color: Colors.red)),
   );
 
-  String idUser = "1";
+  String idUser = "1",
+      name = "leonardo",
+      avatar = "https://avatars.githubusercontent.com/u/74056749?v=4";
   bool valid = true;
-  String name = "leonardo";
-  String avatar = "https://avatars.githubusercontent.com/u/74056749?v=4";
+  // String name = "leonardo";
+  // String avatar = "https://avatars.githubusercontent.com/u/74056749?v=4";
 
   List<Message> messages = [
     Message(message: "1", id: "1", chatKey: "olin"),
@@ -39,6 +46,31 @@ class _ChatViewState extends State<ChatView> {
     Message(message: "4", id: "2", chatKey: "polin"),
     Message(message: "5", id: "2", chatKey: "polin"),
   ];
+
+  @override
+  void initState() {
+    //Initializing the message list
+    // messages = List<String>();
+    //Initializing the TextEditingController and ScrollController
+    // textController = TextEditingController();
+    // scrollController = ScrollController();
+    //Creating the socket
+    socketIO = SocketIOManager().createSocketIO(
+      'http://localhost:3000',
+      '/',
+    );
+    //Call init before doing anything with socket
+    socketIO.init();
+    //Subscribe to an event to listen to
+    socketIO.subscribe('receive_message', (jsonData) {
+      //Convert the JSON data received into a Map
+      print(jsonData);
+      print("testes");
+    });
+    //Connect to the socket
+    socketIO.connect();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,9 +142,9 @@ class _ChatViewState extends State<ChatView> {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: (messages[index].id != idUser
-                          ? Colors.grey.shade200
-                          : Colors.blue[200]),
+                      color: (messages[index].id == idUser
+                          ? AppColors.blueSend
+                          : AppColors.blueRedcieve),
                     ),
                     padding: EdgeInsets.all(16),
                     child: Text(
@@ -186,3 +218,42 @@ class _ChatViewState extends State<ChatView> {
     );
   }
 }
+
+// class _ChatPageState extends State<ChatPage> {
+//   SocketIO socketIO;
+//   List<String> messages;
+//   double height, width;
+//   TextEditingController textController;
+//   ScrollController scrollController;
+
+//   @override
+//   void initState() {
+//     //Initializing the TextEditingController and ScrollController
+//     textController = TextEditingController();
+//     scrollController = ScrollController();
+    
+//     //Creating the socket
+//     socketIO = SocketIOManager().createSocketIO(
+//       'http://localhost:3000',
+//       '/',
+//     );
+    
+//     //Call init before doing anything with socket
+//     socketIO.init();
+//     //Subscribe to an event to listen to
+    
+//     // socketIO.subscribe('receive_message', (jsonData) {
+//     //   //Convert the JSON data received into a Map
+//     //   Map<String, dynamic> data = json.decode(jsonData);
+//     //   this.setState(() => messages.add(data['message']));
+//     //   scrollController.animateTo(
+//     //     scrollController.position.maxScrollExtent,
+//     //     duration: Duration(milliseconds: 600),
+//     //     curve: Curves.ease,
+//     //   );
+//     // });
+
+//     //Connect to the socket
+//     socketIO.connect();
+//     super.initState();
+//   }

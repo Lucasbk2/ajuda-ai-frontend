@@ -110,7 +110,7 @@ class _ChatViewState extends State<ChatView> {
                         child: Text(
                           messages[index].message,
                           style: TextStyle(fontSize: 15),
-                          borderRadius: BorderRadius.circular(20)
+                          
                         ),
                       ),
                     ),
@@ -130,6 +130,7 @@ class _ChatViewState extends State<ChatView> {
                         obscureText: true,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
+                          borderRadius: BorderRadius.circular(20),
                           labelText: 'Mensagem',
                         ),
                       ),
