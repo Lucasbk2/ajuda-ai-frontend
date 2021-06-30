@@ -23,7 +23,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
