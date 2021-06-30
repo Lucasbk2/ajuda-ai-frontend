@@ -6,7 +6,7 @@ class CustomGraphqlClient{
 
   GraphQLClient _graphQLClient;
 
-  GraphqlClient(){
+  CustomGraphqlClient(){
     _graphQLClient = GraphQLClient( cache: GraphQLCache(), link: _link);
   }
 
@@ -20,13 +20,21 @@ class CustomGraphqlClient{
     );
 
     final result = await _graphQLClient.query(options);
+    return Future.value(result);
+    
+  }
 
-    if (result.hasException) {
-      print(result.exception);
-      return null;
-    }
+  Future<QueryResult> executeMutatios(String strDocument, {Map<String, dynamic> variables = null}) async{
+    
+    final _options = MutationOptions(
+      document: gql(strDocument),
+      variables: variables,
+    );
+    print(variables);
 
-    return result;
+    final result = await _graphQLClient.mutate(_options);
+    return Future.value(result);;
+    
   }
 
 }

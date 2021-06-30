@@ -1,4 +1,3 @@
-import 'package:ajudaai/app/screens/map/MapController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,10 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 
-final _mapController = MyMapController();
-
 class MapView extends StatefulWidget {
-
   MapView({Key key}) : super(key: key);
 
   @override
@@ -18,17 +14,23 @@ class MapView extends StatefulWidget {
 }
 
 class _MapView extends State<MapView> {
-
-  MapController _originalMapController;
+  MapController _originalMapController = MapController();
   String _serviceError = '';
   LocationData _currentLocation;
   final Location _locationService = Location();
   bool isLoading = true;
+  bool isMapaLoaded = false;
+
+  _MapView() {
+    print("Constructor");
+    if (_originalMapController == null) {
+      _originalMapController = MapController();
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    _originalMapController = MapController();
     initLocationService();
   }
 
@@ -53,15 +55,24 @@ class _MapView extends State<MapView> {
           _currentLocation = location;
           _locationService.onLocationChanged
               .listen((LocationData result) async {
+            var mapaMove = (result) => {
+                  setState(() {
+                    _currentLocation = result;
+                    _originalMapController.move(
+                        LatLng(_currentLocation.latitude,
+                            _currentLocation.longitude),
+                        _originalMapController.zoom);
+                  })
+                };
             if (mounted) {
-              setState(() {
-                _currentLocation = result;
+              if (isLoading) {
                 isLoading = false;
-                _originalMapController.move(
-                    LatLng(_currentLocation.latitude,
-                        _currentLocation.longitude),
-                    _originalMapController.zoom);
-              });
+                Future.delayed(Duration(seconds: 1), () {
+                  mapaMove(result);
+                });
+              } else {
+                mapaMove(result);
+              }
             }
           });
         }
@@ -82,10 +93,9 @@ class _MapView extends State<MapView> {
       location = null;
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    
     LatLng _center;
 
     // Until currentLocation is initially updated, Widget can locate to 0, 0
@@ -96,51 +106,54 @@ class _MapView extends State<MapView> {
       _center = LatLng(0, 0);
     }
 
+    /*
     AssetImage PurpleMarkerAsset = AssetImage('markers/PurpleMarker.png');
     Image PurpleMarker = Image(image: PurpleMarkerAsset,fit: BoxFit.cover,);
     AssetImage RedMarkerAsset = AssetImage('markers/RedMarker.png');
     Image RedMarker = Image(image: RedMarkerAsset,fit: BoxFit.cover,);
     AssetImage BlueMarkerAsset = AssetImage('markers/BlueMarker.png');
     Image BlueMarker = Image(image: BlueMarkerAsset,fit: BoxFit.cover,);
+    */
 
-    if(isLoading){
+    if (isLoading) {
       return Scaffold(
-        appBar: AppBar(title: Text('Aquele mapa') ),
-        body: Center(
-          child: CircularProgressIndicator(),
-        )
-      );
-    }else{
+          appBar: AppBar(title: Text('Mapa')),
+          body: CircularProgressIndicator());
+    } else {
       return Scaffold(
-      appBar: AppBar(title: Observer(builder: (_) => Text('${_mapController.latitude}'),),),
-      body: Observer(builder: (_ ) => 
-        FlutterMap(
-        mapController: _originalMapController,
-        options: MapOptions(center: _center, zoom: 15),
-        layers: [
-          TileLayerOptions(
-            urlTemplate:
-                "https://api.mapbox.com/styles/v1/lucasll/ckq01l0re8qij17lmgb5uqb36/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibHVjYXNsbCIsImEiOiJja3B6eDNvaHUwaG14Mm5yMDZzejFtMXE3In0.2f-bxWD7CQs5KTv0FHvQGw",
-            additionalOptions: {
-              'accessToken':
-                  "pk.eyJ1IjoibHVjYXNsbCIsImEiOiJja3B6eDNvaHUwaG14Mm5yMDZzejFtMXE3In0.2f-bxWD7CQs5KTv0FHvQGw",
-              'id': 'mapbox.mapbox-streets-v8',
-            },
-          ),
-          MarkerLayerOptions(
-            markers: [
-              Marker(
-                width: 80.0,
-                height: 80.0,
-                point: LatLng(_mapController.latitude, _mapController.longitude),
-                builder: (context) => Container(child: PurpleMarker,)
-              ),
-            ],
-          ),
-        ],
-      ),
-      )
-    );
+          appBar: AppBar(title: Text('Mapa')),
+          body: Observer(
+            builder: (_) => FlutterMap(
+              mapController: _originalMapController,
+              options: MapOptions(center: _center, zoom: 15),
+              layers: [
+                TileLayerOptions(
+                  urlTemplate:
+                      "https://api.mapbox.com/styles/v1/lucasll/ckq01l0re8qij17lmgb5uqb36/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibHVjYXNsbCIsImEiOiJja3B6eDNvaHUwaG14Mm5yMDZzejFtMXE3In0.2f-bxWD7CQs5KTv0FHvQGw",
+                  additionalOptions: {
+                    'accessToken':
+                        "pk.eyJ1IjoibHVjYXNsbCIsImEiOiJja3B6eDNvaHUwaG14Mm5yMDZzejFtMXE3In0.2f-bxWD7CQs5KTv0FHvQGw",
+                    'id': 'mapbox.mapbox-streets-v8',
+                  },
+                ),
+                /*
+            MarkerLayerOptions(
+              markers: [
+                Marker(
+                  width: 80.0,
+                  height: 80.0,
+                  point: LatLng(_mapController.latitude, _mapController.longitude),
+                  builder: (context) => Container(child: new CircleAvatar(
+                                                              backgroundColor: Colors.blue,
+                                                              child: new Text("A"),
+                                                          ),)
+                ),
+              ],
+            ),
+            */
+              ],
+            ),
+          ));
     }
   }
 }

@@ -1,25 +1,9 @@
-const String testeReadAllUSers = r'''
-      query readUsers() {
-        viewer {
-
-          users() {
-            users() {
-              name
-              email
-            }
-          }
-
-        }
-      }
-    ''';
-
 const String readAllUsers = r'''
-query readUsers(){
-   viewer {
-      users() {
-        name
-        email
-      }
+query{
+  
+  users{
+    name
+    email
   }
 }
 ''';
