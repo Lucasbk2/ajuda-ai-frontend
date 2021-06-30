@@ -79,6 +79,7 @@ class _ChatViewState extends State<ChatView> {
         backgroundColor: AppColors.appBarPurple,
         elevation: 0,
         automaticallyImplyLeading: false,
+        backgroundColor: Colors.purple[950],
         flexibleSpace: SafeArea(
           child: Container(
             padding: EdgeInsets.only(right: 16),

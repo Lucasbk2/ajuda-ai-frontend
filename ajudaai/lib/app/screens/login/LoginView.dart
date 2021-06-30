@@ -1,7 +1,10 @@
+import 'package:ajudaai/app/screens/login/LoginController.dart';
 import 'package:ajudaai/app/screens/register/Register.dart';
 import 'package:ajudaai/app/shared/core/app_colors.dart';
 import 'package:ajudaai/app/shared/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 
 class LoginView extends StatelessWidget {
   @override
@@ -19,6 +22,8 @@ class MyLoginPage extends StatefulWidget {
 }
 
 class _MyLoginPageState extends State<MyLoginPage> {
+  LoginController _loginController = LoginController();
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -68,50 +73,57 @@ class _MyLoginPageState extends State<MyLoginPage> {
                     child: Column(
                       children: <Widget>[
                         Container(
-                          padding: EdgeInsets.all(8.0),
-                          decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(color: Colors.grey[100])),
-                          ),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Email',
-                              hintStyle: TextStyle(color: AppColors.label),
+                            padding: EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(color: Colors.grey[100])),
                             ),
-                          ),
-                        ),
+                            child: Observer(
+                              builder: (_) => TextField(
+                                controller: _loginController.txtLogin,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Email',
+                                  hintStyle: TextStyle(color: AppColors.label),
+                                ),
+                              ),
+                            )),
                         Container(
-                          padding: EdgeInsets.all(8.0),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Password',
-                              hintStyle: TextStyle(color: AppColors.label),
-                            ),
-                          ),
-                        ),
+                            padding: EdgeInsets.all(8.0),
+                            child: Observer(
+                              builder: (_) => TextField(
+                                controller: _loginController.txtPass,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Password',
+                                  hintStyle: TextStyle(color: AppColors.label),
+                                ),
+                              ),
+                            )),
                       ],
                     ),
                   ),
                   SizedBox(
                     height: 30,
                   ),
-                  Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColors.purpleButton,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Login',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
+                  GestureDetector(
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: AppColors.purpleButton,
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Login',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
                       ),
                     ),
+                    onTap: () => {_loginController.doLogin(context)},
                   ),
                   SizedBox(height: 5.0),
                   Container(
@@ -120,7 +132,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                     child: InkWell(
                       onTap: () {},
                       child: Text(
-                        'Esqueceu sua senha?',
+                        '',
                         style: TextStyle(
                           color: AppColors.linkLogin,
                           fontWeight: FontWeight.bold,

@@ -4,7 +4,7 @@ abstract class IuserService {
   Future<List<User>> getAllUsers();
   Future<int> insertUser(User user);
 
-  Future<bool> doLogin(String login, String email);
+  Future<bool> doLogin(String login, String pass);
   Future<bool> doRegister(User user);
   Future<bool> verifyLogin();
 

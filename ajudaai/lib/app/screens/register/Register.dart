@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:ajudaai/app/screens/login/LoginView.dart';
+import 'package:ajudaai/app/shared/core/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -14,7 +15,8 @@ class _Register extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Register")),
+      appBar: AppBar(
+        backgroundColor: AppColors.appBarPurple, title: Text("Register")),
     );
   }
 }

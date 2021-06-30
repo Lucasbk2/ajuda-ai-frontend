@@ -3,16 +3,20 @@ import 'package:flutter/material.dart';
 
 class CardComponent extends StatefulWidget {
   Color _color;
-  CardComponent(this._color, {Key key}) : super(key: key);
+  String _titulo;
+  String _texto;
+  CardComponent(this._color, this._titulo, this._texto, {Key key}) : super(key: key);
 
   @override
-  _CardComponent createState() => _CardComponent(_color);
+  _CardComponent createState() => _CardComponent(_color, _titulo, _texto);
 }
 
 class _CardComponent extends State<CardComponent> {
   Color _color;
+  String _titulo;
+  String _texto;
 
-  _CardComponent(this._color);
+  _CardComponent(this._color, this._titulo, this._texto);
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +47,13 @@ class _CardComponent extends State<CardComponent> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Titulo',
+                        _titulo,
                         style: TextStyle(
                           color: _color,
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       SizedBox(height: 10),
-                      Text('Aquele texto bolado'),
+                      Text(_texto),
                     ],
                   ),
                 )

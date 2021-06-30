@@ -1,4 +1,6 @@
+import 'package:ajudaai/app/screens/components/sidebar/CustomDrawer.dart';
 import 'package:ajudaai/app/screens/user/UserController.dart';
+import 'package:ajudaai/app/shared/core/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
@@ -27,7 +29,9 @@ class _UserView extends State<UserView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Perfil")),
+      appBar: AppBar(
+        backgroundColor: AppColors.appBarPurple, title: Text("Perfil")),
+      drawer: CustomDrawer(),
       body: Container(
         padding: EdgeInsets.only(top: 30),
         margin: EdgeInsets.all(50),

@@ -10,6 +10,7 @@ class AppColors {
   static final Color label = Color(0xFF929292);
   static final Color labelBackgroud = Color(0xFFF2F2F7);
   static final Color linkLogin = Color(0xFF007AFF);
+  static final Color appBarPurple = Color(0xFF8A738D);
 }
 
 class AppGradientColors {
