@@ -10,7 +10,7 @@ import 'app/screens/register/Register.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: '/initial',
+    initialRoute: '/splash',
     routes: <String, WidgetBuilder>{
       '/initial': (BuildContext context) => HomeView(title: 'Aquele teste'),
       '/login': (BuildContext context) => LoginView(),

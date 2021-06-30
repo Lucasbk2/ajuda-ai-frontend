@@ -18,3 +18,16 @@ query readUserByID($id: Int!) {
   }
 }
 ''';
+
+const String strDoLogin = r'''
+query userLogin($login: String, $pass: String) {
+  viewer {
+    userLogin( login: $login, pass: $pass ){
+      name
+      number
+      email
+      password
+    }
+  }
+}
+''';

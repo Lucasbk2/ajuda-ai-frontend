@@ -27,7 +27,7 @@ class _UserView extends State<UserView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Login")),
+      appBar: AppBar(title: Text("Perfil")),
       body: Container(
         padding: EdgeInsets.only(top: 30),
         margin: EdgeInsets.all(50),
