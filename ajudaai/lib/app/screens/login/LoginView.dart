@@ -8,22 +8,22 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: new MyHomePage(),
+      home: new MyLoginPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyLoginPage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyLoginPageState createState() => new _MyLoginPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyLoginPageState extends State<MyLoginPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -117,17 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Container(
                     alignment: Alignment(1.0, 0.0),
                     padding: EdgeInsets.only(top: 17.0, left: 20.0),
-                    child: InkWell(
-                      onTap: () {},
-                      child: Text(
-                        'Esqueceu sua senha?',
-                        style: TextStyle(
-                          color: AppColors.linkLogin,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Roboto',
-                        ),
-                      ),
-                    ),
+                    
                   ),
                   SizedBox(
                     height: 40,
@@ -148,8 +138,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       GestureDetector(
                         onTap: () => {
                           Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Register()))
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Register()))
                         },
                         child: InkWell(
                             child: Text(

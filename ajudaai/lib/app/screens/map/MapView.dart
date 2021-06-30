@@ -21,6 +21,25 @@ class _MapView extends State<MapView> {
   bool isLoading = true;
   bool isMapaLoaded = false;
 
+  List<Marker> _markers = [
+      Marker(
+        width: 80.0,
+        height: 80.0,
+        point: LatLng(51.5, -0.09),
+        builder: (ctx) => Container(
+          child: FlutterLogo(),
+        ),
+      ),
+      Marker(
+        width: 80.0,
+        height: 80.0,
+        point: LatLng(53.3498, -6.2603),
+        builder: (ctx) => Container(
+          child: FlutterLogo(),
+        ),
+      )
+    ];
+
   _MapView() {
     print("Constructor");
     if (_originalMapController == null) {
@@ -32,6 +51,29 @@ class _MapView extends State<MapView> {
   void initState() {
     super.initState();
     initLocationService();
+  }
+
+  void updateLocation(LocationData result) {
+    setState(() {
+      _currentLocation = result;
+      final createMarker = ( latLng ) => Marker(
+        width: 60.0,
+        height: 60.0,
+        point: latLng,
+        builder: (ctx) => Container(
+          child: FlutterLogo(),
+        ),
+      );
+
+      _markers[0] = createMarker(LatLng(_currentLocation.latitude, _currentLocation.longitude));
+      
+      _markers[1] = createMarker(LatLng(_currentLocation.latitude + 0.010, _currentLocation.longitude + 0.005));
+
+      _originalMapController.move(
+          LatLng(_currentLocation.latitude, _currentLocation.longitude),
+          _originalMapController.zoom);
+    });
+    
   }
 
   void initLocationService() async {
@@ -55,25 +97,7 @@ class _MapView extends State<MapView> {
           _currentLocation = location;
           _locationService.onLocationChanged
               .listen((LocationData result) async {
-            var mapaMove = (result) => {
-                  setState(() {
-                    _currentLocation = result;
-                    _originalMapController.move(
-                        LatLng(_currentLocation.latitude,
-                            _currentLocation.longitude),
-                        _originalMapController.zoom);
-                  })
-                };
-            if (mounted) {
-              if (isLoading) {
-                isLoading = false;
-                Future.delayed(Duration(seconds: 2), () {
-                  mapaMove(result);
-                });
-              } else {
-                mapaMove(result);
-              }
-            }
+            updateLocation(result);
           });
         }
       } else {
@@ -106,54 +130,25 @@ class _MapView extends State<MapView> {
       _center = LatLng(0, 0);
     }
 
-    /*
-    AssetImage PurpleMarkerAsset = AssetImage('markers/PurpleMarker.png');
-    Image PurpleMarker = Image(image: PurpleMarkerAsset,fit: BoxFit.cover,);
-    AssetImage RedMarkerAsset = AssetImage('markers/RedMarker.png');
-    Image RedMarker = Image(image: RedMarkerAsset,fit: BoxFit.cover,);
-    AssetImage BlueMarkerAsset = AssetImage('markers/BlueMarker.png');
-    Image BlueMarker = Image(image: BlueMarkerAsset,fit: BoxFit.cover,);
-    */
-
-    if (isLoading) {
-      return Scaffold(
-          appBar: AppBar(title: Text('Mapa')),
-          body: CircularProgressIndicator());
-    } else {
-      return Scaffold(
-          appBar: AppBar(title: Text('Mapa')),
-          body: Observer(
-            builder: (_) => FlutterMap(
-              mapController: _originalMapController,
-              options: MapOptions(center: _center, zoom: 15),
-              layers: [
-                TileLayerOptions(
-                  urlTemplate:
-                      "https://api.mapbox.com/styles/v1/lucasll/ckq01l0re8qij17lmgb5uqb36/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibHVjYXNsbCIsImEiOiJja3B6eDNvaHUwaG14Mm5yMDZzejFtMXE3In0.2f-bxWD7CQs5KTv0FHvQGw",
-                  additionalOptions: {
-                    'accessToken':
-                        "pk.eyJ1IjoibHVjYXNsbCIsImEiOiJja3B6eDNvaHUwaG14Mm5yMDZzejFtMXE3In0.2f-bxWD7CQs5KTv0FHvQGw",
-                    'id': 'mapbox.mapbox-streets-v8',
-                  },
-                ),
-                /*
-            MarkerLayerOptions(
-              markers: [
-                Marker(
-                  width: 80.0,
-                  height: 80.0,
-                  point: LatLng(_mapController.latitude, _mapController.longitude),
-                  builder: (context) => Container(child: new CircleAvatar(
-                                                              backgroundColor: Colors.blue,
-                                                              child: new Text("A"),
-                                                          ),)
-                ),
-              ],
-            ),
-            */
-              ],
-            ),
-          ));
-    }
+    return Scaffold(
+        appBar: AppBar(title: Text('Mapa')),
+        body: Observer(
+          builder: (_) => FlutterMap(
+            mapController: _originalMapController,
+            options: MapOptions(center: _center, zoom: 15),
+            layers: [
+              TileLayerOptions(
+                urlTemplate:
+                    "https://api.mapbox.com/styles/v1/lucasll/ckq01l0re8qij17lmgb5uqb36/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibHVjYXNsbCIsImEiOiJja3B6eDNvaHUwaG14Mm5yMDZzejFtMXE3In0.2f-bxWD7CQs5KTv0FHvQGw",
+                additionalOptions: {
+                  'accessToken':
+                      "pk.eyJ1IjoibHVjYXNsbCIsImEiOiJja3B6eDNvaHUwaG14Mm5yMDZzejFtMXE3In0.2f-bxWD7CQs5KTv0FHvQGw",
+                  'id': 'mapbox.mapbox-streets-v8',
+                },
+              ),
+              MarkerLayerOptions(markers: _markers)
+            ],
+          ),
+        ));
   }
 }
