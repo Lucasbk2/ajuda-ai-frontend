@@ -39,7 +39,7 @@ class _MapView extends State<MapView> {
       accuracy: LocationAccuracy.high,
       interval: 1000,
     );
-
+    print('opa');
     LocationData location;
     bool serviceEnabled;
     bool serviceRequestResult;
@@ -67,7 +67,7 @@ class _MapView extends State<MapView> {
             if (mounted) {
               if (isLoading) {
                 isLoading = false;
-                Future.delayed(Duration(seconds: 1), () {
+                Future.delayed(Duration(seconds: 2), () {
                   mapaMove(result);
                 });
               } else {
