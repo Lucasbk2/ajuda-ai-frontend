@@ -1,6 +1,10 @@
 import 'package:ajudaai/app/screens/chat/ChatController.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:ajudaai/app/shared/core/core.dart';
+import 'package:ajudaai/app/shared/models/Message.dart';
+
+import 'package:flutter_socket_io/flutter_socket_io.dart';
+import 'package:flutter_socket_io/socket_io_manager.dart';
 
 final _chatController = ChatController();
 
@@ -14,6 +18,60 @@ class ChatView extends StatefulWidget {
 }
 
 class _ChatViewState extends State<ChatView> {
+  String userId = "1";
+  SocketIO socketIO;
+
+  final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
+    onPrimary: Colors.black,
+    primary: Colors.grey[300],
+    // color: Colors.red,
+    minimumSize: Size(88, 36),
+    padding: EdgeInsets.symmetric(horizontal: 100),
+    shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(6)),
+        side: BorderSide(color: Colors.red)),
+  );
+
+  String idUser = "1",
+      name = "leonardo",
+      avatar = "https://avatars.githubusercontent.com/u/74056749?v=4";
+  bool valid = true;
+  // String name = "leonardo";
+  // String avatar = "https://avatars.githubusercontent.com/u/74056749?v=4";
+
+  List<Message> messages = [
+    Message(message: "1", id: "1", chatKey: "olin"),
+    Message(message: "2", id: "2", chatKey: "polin"),
+    Message(message: "3", id: "1", chatKey: "polin"),
+    Message(message: "4", id: "2", chatKey: "polin"),
+    Message(message: "5", id: "2", chatKey: "polin"),
+  ];
+
+  @override
+  void initState() {
+    //Initializing the message list
+    // messages = List<String>();
+    //Initializing the TextEditingController and ScrollController
+    // textController = TextEditingController();
+    // scrollController = ScrollController();
+    //Creating the socket
+    socketIO = SocketIOManager().createSocketIO(
+      'http://localhost:3000',
+      '/',
+    );
+    //Call init before doing anything with socket
+    socketIO.init();
+    //Subscribe to an event to listen to
+    socketIO.subscribe('receive_message', (jsonData) {
+      //Convert the JSON data received into a Map
+      print(jsonData);
+      print("testes");
+    });
+    //Connect to the socket
+    socketIO.connect();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +81,7 @@ class _ChatViewState extends State<ChatView> {
         backgroundColor: Colors.purple[950],
         flexibleSpace: SafeArea(
           child: Container(
-            padding: EdgeInsets.only(right: 20),
+            padding: EdgeInsets.only(right: 16),
             child: Row(
               children: <Widget>[
                 IconButton(
@@ -36,11 +94,10 @@ class _ChatViewState extends State<ChatView> {
                   ),
                 ),
                 SizedBox(
-                  width: 5,
+                  width: 2,
                 ),
                 CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      "https://avatars.githubusercontent.com/u/74056749?s=400&u=c6208d9cc0c689966fc941b04ce65b67859ee1fe&v=4"),
+                  backgroundImage: NetworkImage(avatar),
                   maxRadius: 20,
                 ),
                 SizedBox(
@@ -52,12 +109,12 @@ class _ChatViewState extends State<ChatView> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        "@Leo telles",
+                        name,
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w600),
+                            fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 6,
                       ),
                     ],
                   ),
@@ -69,44 +126,56 @@ class _ChatViewState extends State<ChatView> {
       ),
       body: Stack(
         children: <Widget>[
+          ListView.builder(
+            itemCount: messages.length,
+            shrinkWrap: true,
+            padding: EdgeInsets.only(top: 10, bottom: 10),
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return Container(
+                padding:
+                    EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
+                child: Align(
+                  alignment: (messages[index].id == idUser
+                      ? Alignment.topLeft
+                      : Alignment.topRight),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: (messages[index].id == idUser
+                          ? AppColors.blueSend
+                          : AppColors.blueRedcieve),
+                    ),
+                    padding: EdgeInsets.all(16),
+                    child: Text(
+                      messages[index].message,
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
           Align(
             alignment: Alignment.bottomLeft,
             child: Container(
-              padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
-              height: 80,
+              margin: EdgeInsets.only(bottom: 40),
+              padding:
+                  EdgeInsets.only(right: 10, left: 10, bottom: 10, top: 10),
+              height: 60,
               width: double.infinity,
-              color: Colors.white,
+              color: Colors.grey[300],
               child: Row(
                 children: <Widget>[
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      height: 40,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        color: Colors.lightBlue,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Icon(
-                        Icons.add,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
                   Expanded(
                     child: TextField(
-                      decoration: InputDecoration(
-                          hintText: "escreva sua mensage...",
-                          hintStyle: TextStyle(color: Colors.black54),
-                          border: InputBorder.none),
-                    ),
+                        decoration: InputDecoration(
+                            hintText: "Mensagens...",
+                            hintStyle: TextStyle(color: Colors.black54),
+                            border: InputBorder.none)),
                   ),
                   SizedBox(
-                    width: 25,
+                    width: 15,
                   ),
                   FloatingActionButton(
                     onPressed: () {},
@@ -118,15 +187,27 @@ class _ChatViewState extends State<ChatView> {
                     backgroundColor: Colors.blue,
                     elevation: 0,
                   ),
-                  TextButton(
-                    style: ButtonStyle(
-                      overlayColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        return Colors.purple;
-                      }),
+                ],
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Container(
+              margin: EdgeInsets.only(bottom: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  if (valid)
+                    ElevatedButton(
+                      style: raisedButtonStyle,
+                      onPressed: () {},
+                      child: const Text('Aceitar ajuda'),
                     ),
+                  ElevatedButton(
+                    style: raisedButtonStyle,
                     onPressed: () {},
-                    child: Text('Finalizar'),
+                    child: const Text('Finalizado'),
                   )
                 ],
               ),
@@ -137,3 +218,42 @@ class _ChatViewState extends State<ChatView> {
     );
   }
 }
+
+// class _ChatPageState extends State<ChatPage> {
+//   SocketIO socketIO;
+//   List<String> messages;
+//   double height, width;
+//   TextEditingController textController;
+//   ScrollController scrollController;
+
+//   @override
+//   void initState() {
+//     //Initializing the TextEditingController and ScrollController
+//     textController = TextEditingController();
+//     scrollController = ScrollController();
+    
+//     //Creating the socket
+//     socketIO = SocketIOManager().createSocketIO(
+//       'http://localhost:3000',
+//       '/',
+//     );
+    
+//     //Call init before doing anything with socket
+//     socketIO.init();
+//     //Subscribe to an event to listen to
+    
+//     // socketIO.subscribe('receive_message', (jsonData) {
+//     //   //Convert the JSON data received into a Map
+//     //   Map<String, dynamic> data = json.decode(jsonData);
+//     //   this.setState(() => messages.add(data['message']));
+//     //   scrollController.animateTo(
+//     //     scrollController.position.maxScrollExtent,
+//     //     duration: Duration(milliseconds: 600),
+//     //     curve: Curves.ease,
+//     //   );
+//     // });
+
+//     //Connect to the socket
+//     socketIO.connect();
+//     super.initState();
+//   }

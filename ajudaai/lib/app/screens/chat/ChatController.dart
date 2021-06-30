@@ -6,11 +6,11 @@ part 'ChatController.g.dart';
 class ChatController = _ChatController with _$ChatController;
 
 abstract class _ChatController with Store {
-
-  
-
   @action
   goBackHome(context) {
-    Navigator.pop(context, true,);
+    Navigator.pop(
+      context,
+      true,
+    );
   }
 }
