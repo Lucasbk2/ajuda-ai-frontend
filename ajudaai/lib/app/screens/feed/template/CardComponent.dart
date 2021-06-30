@@ -27,8 +27,13 @@ class _CardComponent extends State<CardComponent> {
               children: [
                 Expanded(
                   child: new CircleAvatar(
-                    backgroundColor: Colors.blue,
-                    child: new Text("V"),
+
+                    backgroundColor: _color,
+                    radius: 25,
+                    child: new Text("V", style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white
+                    ),),
                   ),
                 ),
                 Expanded(
@@ -40,6 +45,7 @@ class _CardComponent extends State<CardComponent> {
                       Text(
                         'Titulo',
                         style: TextStyle(
+                          color: _color,
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       SizedBox(height: 10),
@@ -49,7 +55,7 @@ class _CardComponent extends State<CardComponent> {
                 )
               ],
             ),
-            height: 150,
+            height: 130,
           )),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(5.0)),

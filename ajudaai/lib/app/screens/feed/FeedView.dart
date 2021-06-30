@@ -20,29 +20,31 @@ class _FeedView extends State<FeedView> {
         appBar: AppBar(title: Text("Feed")),
         drawer: CustomDrawer(),
         body: Container(
-          
           decoration: BoxDecoration(gradient: AppGradientColors.linear),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.all(20.0),
-                child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      // border: Border(bottom: BorderSide(color: Colors.grey[100])),
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                    ),
+                  margin: EdgeInsets.all(20.0),
+                  child: SizedBox(
+                    width: double.infinity,
                     child: ElevatedButton(
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all<EdgeInsets>(
+                            EdgeInsets.all(15)),
+                      ),
                       onPressed: () => {
                         showBarModalBottomSheet(
                           context: context,
                           builder: (context) => CreateRequest(),
                         )
                       },
-                      child: Text('Precisndo de ajuda?'),
-                    )),
-              ),
+                      child: Text('Precisando de ajuda?', style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
+                      ),),
+                    ),
+                  )),
               CardComponent(Colors.deepOrange),
               CardComponent(Colors.deepPurple),
               CardComponent(Colors.cyanAccent),
