@@ -36,7 +36,7 @@ class _ChatViewState extends State<ChatView> {
       name = "leonardo",
       avatar = "https://avatars.githubusercontent.com/u/74056749?v=4";
   bool valid = true;
-  // String name = "leonardo";
+  // String chat = "testead";
   // String avatar = "https://avatars.githubusercontent.com/u/74056749?v=4";
 
   List<Message> messages = [
@@ -49,27 +49,47 @@ class _ChatViewState extends State<ChatView> {
 
   @override
   void initState() {
-    //Initializing the message list
-    // messages = List<String>();
-    //Initializing the TextEditingController and ScrollController
-    // textController = TextEditingController();
-    // scrollController = ScrollController();
-    //Creating the socket
-    socketIO = SocketIOManager().createSocketIO(
-      'http://localhost:3000',
-      '/',
-    );
-    //Call init before doing anything with socket
+//update your domain before using
+    /*socketIO = new SocketIO("http://127.0.0.1:3000", "/chat",
+        query: "userId=21031", socketStatusCallback: _socketStatus);*/
+    socketIO = SocketIOManager().createSocketIO("http://10.0.0.15:3000", "/",
+        query: "", socketStatusCallback: _socketStatus);
+
+    //call init socket before doing anything
     socketIO.init();
-    //Subscribe to an event to listen to
-    socketIO.subscribe('receive_message', (jsonData) {
-      //Convert the JSON data received into a Map
-      print(jsonData);
-      print("testes");
-    });
-    //Connect to the socket
+
+    //subscribe event
+    socketIO.subscribe("socket_info", _onSocketInfo);
+
+    //connect socket
     socketIO.connect();
     super.initState();
+  }
+
+  _onSocketInfo(dynamic data) {
+    print("Socket info: " + data);
+  }
+
+  _socketStatus(dynamic data) {
+    print("Socket status: " + data);
+  }
+
+  void _sendChatMessage(String msg) async {
+    if (socketIO != null) {
+      String jsonData =
+          '{"message":{"type":"Text","content": ${(msg != null && msg.isNotEmpty) ? '"${msg}"' : '"Hello SOCKET IO PLUGIN :))"'},"owner":"589f10b9bbcd694aa570988d","avatar":"img/avatar-default.png"},"sender":{"userId":"589f10b9bbcd694aa570988d","first":"Ha","last":"Test 2","location":{"lat":10.792273999999999,"long":106.6430356,"accuracy":38,"regionId":null,"vendor":"gps","verticalAccuracy":null},"name":"Ha Test 2"},"receivers":["587e1147744c6260e2d3a4af"],"conversationId":"589f116612aa254aa4fef79f","name":null,"isAnonymous":null}';
+      socketIO.sendMessage("chat_direct", jsonData, _onReceiveChatMessage);
+    }
+  }
+
+  _subscribes() {
+    if (socketIO != null) {
+      socketIO.subscribe("chat_direct", _onReceiveChatMessage);
+    }
+  }
+
+  void _onReceiveChatMessage(dynamic message) {
+    print("Message from UFO: " + message);
   }
 
   @override
