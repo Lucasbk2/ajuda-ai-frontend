@@ -22,6 +22,14 @@ class _HomeViewState extends State<HomeView> {
     AssetImage PurpleMarker = AssetImage('markers/PurpleMarker.png');
     Image imagem = Image(image: PurpleMarker,width:300,height:100,fit: BoxFit.cover,);
     */
+    /*
+    Image imagem = Image(
+      image: PurpleMarker,
+      width: 300,
+      height: 100,
+      fit: BoxFit.cover,
+    );
+    */
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
