@@ -56,12 +56,15 @@ class _MapaComponent extends State<MapaComponent> {
   void updateLocation(LocationData result) {
     setState(() {
       _currentLocation = result;
+      AssetImage PurpleMarker = AssetImage('markers/PurpleMarker.png');
+      Image imagem = Image(image: PurpleMarker,width:300,height:100,fit: BoxFit.cover,);
+
       final createMarker = (latLng) => Marker(
             width: 60.0,
             height: 60.0,
             point: latLng,
             builder: (ctx) => Container(
-              child: FlutterLogo(),
+              child: imagem,
             ),
           );
 

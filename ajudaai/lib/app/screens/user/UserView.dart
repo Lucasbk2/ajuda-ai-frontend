@@ -44,7 +44,7 @@ class _UserView extends State<UserView> {
                 children: [
                   CircleAvatar(
                     radius: 25,
-                    backgroundColor: Colors.purpleAccent,
+                    backgroundColor: AppColors.purpleButton,
                     child: Text("L", style: TextStyle(
                       fontSize: 20
                     ),),
@@ -105,9 +105,18 @@ class _UserView extends State<UserView> {
               ),
               Container(
                 padding: EdgeInsets.all(10),
-                child: OutlinedButton(
-                    child: Text("pegar e cadastrar Usuário"),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  // height: double.infinity,
+                  child: ElevatedButton(
+                    child: Text("cadastrar Usuário", style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                    )),
+                    style: ButtonStyle( backgroundColor: MaterialStateProperty.all( AppColors.purpleButton ) ),
                     onPressed: _userController.LoadAllUsers),
+                )
               ),
             ]),
       ),

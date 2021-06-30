@@ -2,6 +2,7 @@
 import 'package:ajudaai/app/screens/feed/FeedView.dart';
 import 'package:ajudaai/app/screens/sobre/SobreView.dart';
 import 'package:ajudaai/app/screens/splash/SplashView.dart';
+import 'package:ajudaai/app/screens/user/UserView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +10,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'TextAndPhoto.dart';
 
 class CustomDrawer extends StatelessWidget {
+
+void sair(context) async{
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                  
+                  [ "nome", "numero", "email", "senha", ].forEach((x) => prefs.remove(x) );
+                  
+                  Navigator.push( context, MaterialPageRoute(builder: (context) => SplashView()));
+}
+
   @override
   Widget build(BuildContext context) => Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
@@ -35,9 +45,8 @@ class CustomDrawer extends StatelessWidget {
             ),
             ListTile(
               title: TextAndPhoto( "Perfil", Icon( Icons.supervised_user_circle ) ),
-              onTap: () {
-                Navigator.pop(context);
-              },
+              onTap: () =>
+                Navigator.push( context, MaterialPageRoute(builder: (context) => UserView())),
             ),
             ListTile(
               title: TextAndPhoto( "Ajudas", Icon( Icons.help ) ),
@@ -57,20 +66,10 @@ class CustomDrawer extends StatelessWidget {
             ListTile(
               title: Align(
                   alignment: Alignment.bottomLeft,
-                  child: 
-                    GestureDetector(
-                      child: TextAndPhoto( "Sair", Icon( Icons.exit_to_app, color: Colors.red, ) ),
-                      onTap: () async {
-                        print("teste");
-                        SharedPreferences prefs = await SharedPreferences.getInstance();
-                        [ "nome", "numero", "email", "senha", ].forEach((x) => prefs.remove(x) );
-                        Navigator.push( context, MaterialPageRoute(builder: (context) => SplashView()));
-                      },
-                    )
+                  child: TextAndPhoto( "Sair", Icon( Icons.exit_to_app, color: Colors.red, ) ),
+                      
                 ),
-              onTap: () {
-                Navigator.pop(context);
-              },
+              onTap: () => sair(context)
             ),
 
           ],
