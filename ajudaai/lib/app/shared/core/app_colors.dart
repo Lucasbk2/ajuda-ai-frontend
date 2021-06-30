@@ -14,10 +14,11 @@ class AppColors {
 
 class AppGradientColors {
   static final linear = LinearGradient(colors: [
+    /*
     Color(0xFF8C668E),
     Color.fromRGBO(138, 115, 141, 0.16),
-  ], stops: [
-    0.0,
-    0.695,
-  ], transform: GradientRotation(3.14159 * pi));
+    */
+    Color.fromRGBO(172, 156, 173, 1),
+    Color.fromRGBO(172, 156, 173, 0.8),
+  ], );
 }

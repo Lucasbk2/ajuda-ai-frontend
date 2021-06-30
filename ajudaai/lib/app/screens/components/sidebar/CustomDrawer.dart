@@ -38,25 +38,18 @@ class CustomDrawer extends StatelessWidget {
             ListTile(
               title: TextAndPhoto( "Ajudas", "a" ),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pushNamed(context, "/initial");
               },
             ),
             new Divider(),
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: ListTile(
-                        title: Expanded(
-                          child: Align(
-                            alignment: Alignment.bottomLeft,
-                            child: TextAndPhoto( "Sobre", "a" ),
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-              )
+            ListTile(
+              title: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: TextAndPhoto( "Sobre", "a" ),
+                ),
+              onTap: () {
+                Navigator.pop(context);
+              },
             ),
           ],
         ),

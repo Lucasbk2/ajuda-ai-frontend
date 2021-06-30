@@ -1,3 +1,6 @@
+import 'dart:html';
+
+import 'package:ajudaai/app/screens/login/LoginView.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -12,7 +15,16 @@ class _Register extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Register")),
-      body: Center( child: Text("Leite é gay"), )
     );
   }
+}
+
+class RegisterPage extends StatefulWidget {
+  @override
+  _RegisterPageState createState() => new _RegisterPageState();
+}
+
+class _RegisterPageState extends State<MyLoginPage> {
+  @override
+  Widget build(BuildContext context) {}
 }
