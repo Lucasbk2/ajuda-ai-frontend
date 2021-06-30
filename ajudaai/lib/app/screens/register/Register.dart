@@ -1,4 +1,6 @@
-import 'package:ajudaai/app/screens/register/Register.dart';
+
+import 'package:ajudaai/app/screens/login/LoginView.dart';
+import 'package:ajudaai/app/shared/core/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:ajudaai/app/shared/core/app_colors.dart';
 
@@ -25,6 +27,8 @@ class _Register extends State<Register> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        backgroundColor: AppColors.appBarPurple, title: Text("Register")),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,9 +153,9 @@ class _Register extends State<Register> {
                     alignment: Alignment(1.0, 0.0),
                     padding: EdgeInsets.only(top: 17.0, left: 20.0),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () => Navigator.push( context, MaterialPageRoute(builder: (context) => LoginView())),
                       child: Text(
-                        'Esqueceu sua senha?',
+                        'Voltar para o login',
                         style: TextStyle(
                           color: AppColors.linkLogin,
                           fontWeight: FontWeight.bold,
@@ -163,39 +167,7 @@ class _Register extends State<Register> {
                   SizedBox(
                     height: 40,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Não tem uma conta?',
-                        style: TextStyle(
-                          color: AppColors.purpleText,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 5.0,
-                      ),
-                      GestureDetector(
-                        onTap: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Register()))
-                        },
-                        child: InkWell(
-                            child: Text(
-                          'Cadastre-se aqui',
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            color: AppColors.linkLogin,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.none,
-                          ),
-                        )),
-                      ),
-                    ],
-                  ),
+                  
                 ],
               ),
             ),

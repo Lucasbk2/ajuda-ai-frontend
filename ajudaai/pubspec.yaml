@@ -68,6 +68,9 @@ flutter:
     - assets/markers/PurpleMarker.png
     - assets/markers/RedMarker.png
     - assets/markers/YellowMarker.png
+    - assets/images/sobre.png
+    - assets/images/sobre1.png
+    - assets/images/sobre2.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

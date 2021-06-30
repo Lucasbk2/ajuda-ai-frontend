@@ -29,6 +29,13 @@ class _CreateRequest extends State<CreateRequest> {
                 onTap: () => {Navigator.pop(context)},
                 child: Text("Cancelar"),
               ),
+              Text(
+                "Criar Pedido",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold
+                ) ,
+              ),
               InkWell(
                 onTap: () => {Navigator.pop(context)},
                 child: Text("Salvar"),

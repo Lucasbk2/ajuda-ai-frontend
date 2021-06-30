@@ -1,5 +1,6 @@
 import 'package:ajudaai/app/screens/login/LoginView.dart';
 
+import 'app/shared/core/app_colors.dart';
 import 'counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -33,6 +34,7 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        backgroundColor: AppColors.appBarPurple,
       ),
       body: Center(
         child: Column(

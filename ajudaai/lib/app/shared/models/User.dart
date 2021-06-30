@@ -1,7 +1,10 @@
 class User {
+  
   String name;
   String email;
-  String id;
+  int id;
+  String senha;
+  String numero;
 
-  User({this.name, this.email, this.id});
+  User({this.name, this.email, this.id, this.senha, this.numero});
 }

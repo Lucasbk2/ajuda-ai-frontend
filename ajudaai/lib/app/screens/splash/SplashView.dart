@@ -1,3 +1,4 @@
+import 'package:ajudaai/app/screens/feed/FeedView.dart';
 import 'package:ajudaai/app/screens/login/LoginView.dart';
 import 'package:ajudaai/app/shared/core/app_colors.dart';
 import 'package:ajudaai/app/utils/Injector.dart';
@@ -28,11 +29,13 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
         parent: animationController, curve: Curves.fastOutSlowIn));
     animationController.forward();
     
-    Injector.iUserService.verifyLogin().then((value) => {
+    Injector.iUserService.verifyLogin().then((value) {
       if(value){
-        Navigator.pushNamed(context, "/feed")
+        Navigator.push( context, MaterialPageRoute(builder: (context) => FeedView()));
       }else{
-        Navigator.pushNamed(context, "/login")
+        
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginView()));
       }
     });
   }

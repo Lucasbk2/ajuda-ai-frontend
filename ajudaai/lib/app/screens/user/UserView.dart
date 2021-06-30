@@ -1,4 +1,6 @@
+import 'package:ajudaai/app/screens/components/sidebar/CustomDrawer.dart';
 import 'package:ajudaai/app/screens/user/UserController.dart';
+import 'package:ajudaai/app/shared/core/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
@@ -27,7 +29,9 @@ class _UserView extends State<UserView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Perfil")),
+      appBar: AppBar(
+        backgroundColor: AppColors.appBarPurple, title: Text("Perfil")),
+      drawer: CustomDrawer(),
       body: Container(
         padding: EdgeInsets.only(top: 30),
         margin: EdgeInsets.all(50),
@@ -40,7 +44,7 @@ class _UserView extends State<UserView> {
                 children: [
                   CircleAvatar(
                     radius: 25,
-                    backgroundColor: Colors.purpleAccent,
+                    backgroundColor: AppColors.purpleButton,
                     child: Text("L", style: TextStyle(
                       fontSize: 20
                     ),),
@@ -101,9 +105,18 @@ class _UserView extends State<UserView> {
               ),
               Container(
                 padding: EdgeInsets.all(10),
-                child: OutlinedButton(
-                    child: Text("pegar e cadastrar Usuário"),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  // height: double.infinity,
+                  child: ElevatedButton(
+                    child: Text("cadastrar Usuário", style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                    )),
+                    style: ButtonStyle( backgroundColor: MaterialStateProperty.all( AppColors.purpleButton ) ),
                     onPressed: _userController.LoadAllUsers),
+                )
               ),
             ]),
       ),
